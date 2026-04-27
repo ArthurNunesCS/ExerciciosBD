@@ -148,3 +148,20 @@ values
 	(4, 3, 1, 90.00),
 	(5, 3, 5, 100.00);
 
+-- Importação em massa
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cliente.csv'
+into table tb_cliente
+character set utf8mb4
+fields terminated by ';'
+lines terminated by '\r\n'
+ignore 1 lines
+(nome, email, ativo, data_cadastro);
+
+select * from tb_cliente;
+select * from tb_produto;
+select * from tb_pedido;
+select * from pedido_item;
+
+-- Exercícios progressivos 3
+-- Exercício 3.1
