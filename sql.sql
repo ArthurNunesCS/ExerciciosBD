@@ -7,7 +7,7 @@ create table tb_cliente(
 	id_cliente int primary key auto_increment,
     nome varchar(150) not null,
     email varchar(254) unique,
-    stats boolean default true,
+    ativo tinyint default true,
     data_cadastro datetime default current_timestamp
 ) engine = innoDB;
 
@@ -27,13 +27,7 @@ create table tb_produto(
 	nome varchar(100) not null,
 	preco decimal(7,2) check(preco>0),
 	qtd_estoque int default 0,
-	data_cadastro datetime default current_timestamp,
-    -- Etapa 3
-    id_categoria int not null,
-    constraint fk_produto_categoria
-		foreign key (id_categoria) 
-		references tb_categoria(id_categoria) 
-		on delete restrict
+	data_cadastro datetime default current_timestamp
 ) engine = innoDB;
 
 -- Etapa 3
@@ -64,7 +58,7 @@ o funcionamento correto das transações do banco, garantindo que cada operaçã
     */
 
 create table tb_pedido(
-	id_pedido int auto_increment,
+	id_pedido int primary key auto_increment,
     id_cliente int not null,
     constraint fk_pedido_cliente 
 		foreign key (id_cliente) 
@@ -107,5 +101,50 @@ rename table produto_v1 to tb_produto;
 show tables;
 */
 
-insert into
+
+-- Exercios progressivos 2
+-- Exercício 2.1
+insert into tb_cliente (nome, email, ativo) 
+values
+	('Ana Souza', 'ana@email.com', 1),
+	('Carla Mendes', 'carla@email.com', 1),
+	('Ana Souza', 'ana@gmail.com', 1),
+	('Bruno Lima', 'bruno@yahoo.com', 1),
+	('Carla Dias', 'carla@gmail.com', 1),
+	('Diego Silva', 'diego@outlook.com', 0),
+	('Eva Santos', null , 1),
+	('Fabio Rocha', 'fabio@gmail.com', 1);
+    
+-- Exercício 2.2
+insert into tb_categoria (nome)
+values
+	('Informática'),
+	('Livros'),
+	('Acessórios');
+    
+-- Exercício 2.3
+insert into tb_produto (nome, preco, qtd_estoque, id_categoria)
+values
+	('Notebook', 4500.00, 10, 1),
+	('Mouse Gamer', 150.00, 50, 1),
+	('Livro SQL', 90.00, 30, 2),
+	('Smartphone', 3200.00, 15, 1);
+    
+-- Exercício 2.4
+insert into tb_pedido(id_cliente, valor_pedido)
+values
+	(1, 4500.00),
+	(1, 150.00),
+	(2, 3200.00),
+	(3, 90.00),
+	(3, 500.00);
+    
+-- Exercício 2.5
+insert into pedido_item (id_pedido, id_produto, qtd, preco_uni)
+values
+	(1, 1, 1, 4500.00),
+	(2, 2, 1, 150.00),
+	(3, 4, 1, 3200.00),
+	(4, 3, 1, 90.00),
+	(5, 3, 5, 100.00);
 
