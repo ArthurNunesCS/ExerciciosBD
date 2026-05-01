@@ -165,3 +165,17 @@ select * from pedido_item;
 
 -- Exercícios progressivos 3
 -- Exercício 3.1
+alter table tb_pedido add desconto decimal(5,2); 
+alter table tb_pedido add constraint chk_desconto check (desconto >= 0 and desconto <= 100);
+
+insert into tb_pedido (id_cliente, valor_pedido, desconto)
+values
+	(3, 67.00, 101);
+    
+-- Exercício 3.2
+/*
+1 - On Delete Cascade é usado no relacionamento da tabela pedido_item com a tb_pedido já que não seria possível existir um registro em pedido_item sem um registro em pedido.
+	Então seria melhor que quando se apagasse um registro da tb_pedido, o registro na tabela pedido_item fossem apagados também
+2 - Agora, On Delete Restrict no relacionamento da tabela pedido_item com a tb_produto é mais seguro por conta de que mesmo que tal produto seja apagado do banco de dados,
+	o resgitro em pedido_item não pode ser apagado por que houve uma transação financeira.
+*/
