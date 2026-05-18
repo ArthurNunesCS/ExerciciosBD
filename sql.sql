@@ -7,8 +7,8 @@ create table tb_cliente(
 	id_cliente int primary key auto_increment,
     nome varchar(150) not null,
     email varchar(254) unique,
-    ativo tinyint default true,
-    data_cadastro datetime default current_timestamp
+    ativo tinyint default true not null,
+    data_cadastro datetime default current_timestamp not null
 ) engine = innoDB;
 
 show tables;
@@ -25,9 +25,9 @@ create table tb_categoria(
 create table tb_produto(
 	id_produto int auto_increment primary key,
 	nome varchar(100) not null,
-	preco decimal(7,2) check(preco>0),
-	qtd_estoque int default 0,
-	data_cadastro datetime default current_timestamp
+	preco decimal(7,2) check(preco>0) not null,
+	qtd_estoque int default 0 not null,
+	data_cadastro datetime default current_timestamp not null
 ) engine = innoDB;
 
 -- Etapa 3
@@ -64,8 +64,8 @@ create table tb_pedido(
 		foreign key (id_cliente) 
 		references tb_cliente (id_cliente) 
         on delete cascade,
-	data_pedido datetime default current_timestamp,
-    valor_pedido decimal (7,2) check(valor_pedido>0)
+	data_pedido datetime default current_timestamp not null,
+    valor_pedido decimal (7,2) check(valor_pedido>0) not null
 )engine=InnoDB;
 
 -- Exercício Evoluindo o Sistema (Itens do Pedido)
@@ -74,8 +74,8 @@ create table pedido_item(
 	id_item int primary key auto_increment,
     id_pedido int not null,
     id_produto int not null, 
-    qtd int check (qtd>0),
-    preco_uni decimal(7,2),
+    qtd int check (qtd>0) not null,
+    preco_uni decimal(7,2) not null,
     constraint fk_item_pedido
 		foreign key (id_pedido)
 		references tb_pedido (id_pedido)
@@ -168,10 +168,10 @@ select * from pedido_item;
 alter table tb_pedido add desconto decimal(5,2); 
 alter table tb_pedido add constraint chk_desconto check (desconto >= 0 and desconto <= 100);
 
-insert into tb_pedido (id_cliente, valor_pedido, desconto)
+/*insert into tb_pedido (id_cliente, valor_pedido, desconto)
 values
 	(3, 67.00, 101);
-    
+*/
 -- Exercício 3.2
 /*
 1 - On Delete Cascade é usado no relacionamento da tabela pedido_item com a tb_pedido já que não seria possível existir um registro em pedido_item sem um registro em pedido.
@@ -179,3 +179,8 @@ values
 2 - Agora, On Delete Restrict no relacionamento da tabela pedido_item com a tb_produto é mais seguro por conta de que mesmo que tal produto seja apagado do banco de dados,
 	o resgitro em pedido_item não pode ser apagado por que houve uma transação financeira.
 */
+
+-- Exercício 1
+
+alter table pedido_item drop id_item;
+alter table pedido_item add primary key (id_pedido, id_produto);
