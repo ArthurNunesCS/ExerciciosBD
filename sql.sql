@@ -114,7 +114,9 @@ values
 	('Diego Silva', 'diego@outlook.com', 0),
 	('Eva Santos', null , 1),
 	('Fabio Rocha', 'fabio@gmail.com', 1);
-    
+
+select * from tb_cliente;
+
 -- Exercício 2.2
 insert into tb_categoria (nome)
 values
