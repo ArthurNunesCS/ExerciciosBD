@@ -115,8 +115,6 @@ values
 	('Eva Santos', null , 1),
 	('Fabio Rocha', 'fabio@gmail.com', 1);
 
-select * from tb_cliente;
-
 -- Exercício 2.2
 insert into tb_categoria (nome)
 values
@@ -131,7 +129,7 @@ values
 	('Mouse Gamer', 150.00, 50, 1),
 	('Livro SQL', 90.00, 30, 2),
 	('Smartphone', 3200.00, 15, 1);
-    
+
 -- Exercício 2.4
 insert into tb_pedido(id_cliente, valor_pedido)
 values
@@ -150,8 +148,14 @@ values
 	(4, 3, 1, 90.00),
 	(5, 3, 5, 100.00);
 
+select * from tb_cliente;
+select * from tb_categoria order by id_categoria;
+select * from tb_produto;
+select * from tb_pedido;
+select * from pedido_item;
 -- Importação em massa
 
+select @@secure_file_priv;
 load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cliente.csv'
 into table tb_cliente
 character set utf8mb4
@@ -161,9 +165,7 @@ ignore 1 lines
 (nome, email, ativo, data_cadastro);
 
 select * from tb_cliente;
-select * from tb_produto;
-select * from tb_pedido;
-select * from pedido_item;
+select * from tb_cliente;
 
 -- Exercícios progressivos 3
 -- Exercício 3.1
