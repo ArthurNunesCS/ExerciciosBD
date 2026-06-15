@@ -6,7 +6,7 @@ use db_empresa;
 create table tb_cliente(
 	id_cliente int primary key auto_increment,
     nome varchar(150) not null,
-    email varchar(254) unique,
+    email varchar(254),
     ativo tinyint default true not null,
     data_cadastro datetime default current_timestamp not null
 ) engine = innoDB;
@@ -188,3 +188,62 @@ values
 
 alter table pedido_item drop id_item;
 alter table pedido_item add primary key (id_pedido, id_produto);
+
+-- Exercício 4
+
+start transaction;
+insert into tb_categoria(nome)
+				  values("Periféricos"),
+					    ("Smartphones"),
+					    ("Componentes"),
+					    ("Games"),
+					    ("Impressão");
+commit;
+
+-- Exercício 5
+
+start transaction;
+insert into tb_cliente(nome, email, ativo)
+				values('Marcos Oliveira', 'marcos@email.com', 1),
+					  ('Juliana Costa', 'juliana@email.com', 1),
+                      ('Ricardo Martins', 'ricardo@gmail.com', 1),
+                      ('Patrícia Alves', 'patricia@yahoo.com', 1),
+                      ('Fernando Souza', 'fernando@outlook.com', 1),
+                      ('Camila Rocha', 'camila@gmail.com', 1),
+                      ('Lucas Ferreira', 'lucas@email.com', 1),
+                      ('Renata Lima', 'renata@yahoo.com', 1),
+                      ('Gustavo Santos', 'gustavo@gmail.com', 0),
+                      ('Vanessa Mendes', 'vanessa@email.com', 1),
+                      ('Tiago Ribeiro', 'tiago@outlook.com', 1),
+                      ('Amanda Carvalho', 'amanda@gmail.com', 1),
+                      ('Bruno Fernandes', 'bruno@email.com', 1),
+                      ('Daniela Gomes', 'daniela@yahoo.com', 0),
+                      ('Eduardo Pereira', 'eduardo@gmail.com', 1),
+                      ('Flávia Nunes', null, 1),
+                      ('Henrique Barbosa', 'henrique@email.com', 1),
+                      ('Isabela Freitas', 'isabela@gmail.com', 1),
+                      ('João Pedro Silva', 'joaopedro@yahoo.com', 1),
+                      ('Karen Rodrigues', 'karen@outlook.com', 1);
+commit;
+
+-- Exercício 6
+
+start transaction;
+insert into tb_produto(nome, preco, qtd_estoque, id_categoria)
+				values('Teclado Mecânico RGB', 299.90, 25, 4),
+					  ('Mouse Gmaer Pro', 149.90, 40, 4),
+					  ('Webcam Full HD', 249.90, 18, 4),
+					  ('Galaxy S25', 4899, 12, 4),
+					  ('iPhone 17', 7999, 8, 4),
+					  ('Memória RAM 16GB', 359.90, 30, 4),
+					  ('SSD NVMe 1TB', 499.90, 22, 4),
+					  ('Fonte 650W', 389.90, 15, 4),
+					  ('Controle Xbox Series', 429.90, 20, 4),
+					  ('Headset Gamer', 319.90, 28, 4),
+					  ('Impressora Multifuncional', 899.90, 10, 'Periféricos'),
+					  ('Toner Compatível', 129.90, 50, 'Periféricos'),
+					  (' Papel Fotográfico A4', 39.90, 80, 'Periféricos'),
+					  ('Livro SQL Avançado', 119.90, 35, 'Periféricos'),
+					  ('Livro Modelagem de Dados', 89.90, 20, 'Periféricos');
+                      
+                      
